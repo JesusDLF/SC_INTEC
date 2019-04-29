@@ -494,46 +494,53 @@ class Servicio_Controller extends CI_Controller {
       $Datos = $this->Clientes_Model->ConsultarPaqueteOrdenes($idorden);
 
       $array = array();
-
+      $anterior = 0;
       foreach($Datos as $dato)
       {
-        $TE = 0;
+        $nuevo = $dato['IdPaqueteEnvio'];
+        if($nuevo != $anterior)
+        {
 
-        $totalE = $this->Clientes_Model->ConsultarTotalEquipo($dato['IdOrden'],$dato['IdPaqueteEnvio']);
-        foreach($totalE as $t){$TE = $t['TotalEquipo'];}
+          $anterior = $dato['IdPaqueteEnvio'];
 
-        $arrayOrden = array(
-          "IdOrden" => $dato['IdOrden'],
-          "IdPaqueteEnvio" => $dato['IdPaqueteEnvio'],
-          "NombreCompania" => $dato['NombreCompania'],
-          "Descripcion" => $dato['Descripcion'],
-          "Descripcion_lab" => $dato['Descripcion_lab'],
-          "FechaEnv" => $dato['FechaEnv'],
-          "FechaRecLab" => $dato['FechaRecLab'],
-          "FechaFinalCalLab" => $dato['FechaFinalCalLab'],
-          "FechaRetLab" => $dato['FechaRetLab'],
-          "FechaRecpIntecLab" => $dato['FechaRecpIntecLab'],
-          "Estatus" => $dato['Estatus'],
-          "TotalEquipo" => $TE
-        );
+          $TE = 0;
 
-        $boton = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmacion" id="btnConfirmar">Confirmar</button>';
+          $totalE = $this->Clientes_Model->ConsultarTotalEquipo($dato['IdOrden'],$dato['IdPaqueteEnvio']);
+          foreach($totalE as $t){$TE = $t['TotalEquipo'];}
 
-        if($dato['Estatus'] == 0)
-          $arrayOrden['FechaEnv'] = $boton;
-        else if($dato['Estatus'] == 1)
-          $arrayOrden['FechaRecLab'] = $boton;
-        else if($dato['Estatus'] == 2)
-          $arrayOrden['FechaFinalCalLab'] = $boton;
-        else if($dato['Estatus'] == 3)
-          $arrayOrden['FechaRetLab'] = $boton;
-        else if($dato['Estatus'] == 4)
-          $arrayOrden['FechaRecpIntecLab'] = $boton;
+          $arrayOrden = array(
+            "IdOrden" => $dato['IdOrden'],
+            "IdPaqueteEnvio" => $dato['IdPaqueteEnvio'],
+            "NombreCompania" => $dato['NombreCompania'],
+            "Descripcion" => $dato['Descripcion'],
+            "Descripcion_lab" => $dato['Descripcion_lab'],
+            "FechaEnv" => $dato['FechaEnv'],
+            "FechaRecLab" => $dato['FechaRecLab'],
+            "FechaFinalCalLab" => $dato['FechaFinalCalLab'],
+            "FechaRetLab" => $dato['FechaRetLab'],
+            "FechaRecpIntecLab" => $dato['FechaRecpIntecLab'],
+            "Estatus" => $dato['Estatus'],
+            "TotalEquipo" => $TE
+          );
 
-        array_push($array,$arrayOrden);
+          $boton = '<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#confirmacion" id="btnConfirmar">Confirmar</button>';
 
+          if($dato['Estatus'] == 0)
+            $arrayOrden['FechaEnv'] = $boton;
+          else if($dato['Estatus'] == 1)
+            $arrayOrden['FechaRecLab'] = $boton;
+          else if($dato['Estatus'] == 2)
+            $arrayOrden['FechaFinalCalLab'] = $boton;
+          else if($dato['Estatus'] == 3)
+            $arrayOrden['FechaRetLab'] = $boton;
+          else if($dato['Estatus'] == 4)
+            $arrayOrden['FechaRecpIntecLab'] = $boton;
+
+          array_push($array,$arrayOrden);
+        }
       }
       echo json_encode($array);
+      $anterior = $nuevo;
     }
 
 

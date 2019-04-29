@@ -91,7 +91,7 @@
 
     $(function()
     {
-        $("#tablaSubPaqueteOr").on( 'click', 'tr td:eq(5)' ,TotalEquipos);
+        $("#tablaSubPaqueteOr").on( 'click', 'tr td:nth-child(6)' ,TotalEquipos);
     });
 
     function TotalEquipos()

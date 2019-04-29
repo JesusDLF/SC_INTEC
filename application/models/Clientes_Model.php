@@ -231,7 +231,7 @@ class Clientes_Model extends CI_Model{
         $this->db->join('laboratorio', 'paquete_envio.IdLaboratorio = laboratorio.IdLaboratorio','INNER');
         $this->db->join('cliente', 'cliente.IdCliente = equipo_orden.IdOrden','INNER');
         $this->db->where('IdOrden',$idOrden);
-
+        $this->db->order_by('paquete_envio.IdPaqueteEnvio', 'ASC');
         $query = $this->db->get();
 
         return $query->result_array();

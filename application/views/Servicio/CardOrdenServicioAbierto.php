@@ -60,7 +60,12 @@
 
     $(function()
     {
-        $("#tablaOrdenAbierta").on( 'click', 'tr td:eq(3)' ,TotalPaquetes);
+        $("#tablaOrdenAbierta").on( 'click', 'tr td:nth-child(4)' ,TotalEquipos);
+    });
+    
+    $(function()
+    {
+        $("#tablaOrdenAbierta").on( 'click', 'tr td:nth-child(3)' ,TotalPaquetes);
     });
 
     function TotalEquipos()
@@ -70,11 +75,6 @@
 
         location.href=direccion;
     }
-
-    $(function()
-    {
-        $("#tablaOrdenAbierta").on( 'click', 'tr td:eq(2)' ,TotalEquipos);
-    });
 
     function TotalPaquetes()
     {       
